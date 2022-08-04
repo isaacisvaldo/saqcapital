@@ -1,0 +1,12 @@
+import { Knex } from "knex";
+export async function up(knex: Knex) {
+    return knex.schema.createTable('feedback', (table)=>{
+        table.increments('id').primary();
+        table.string('feedback').notNullable();
+        table.integer('idUtilizador').notNullable().references('idUtilizador').inTable('utilizador');
+    })
+}
+
+export async function down(knex: Knex) {
+    return knex.schema.dropTable('feedback')
+}
