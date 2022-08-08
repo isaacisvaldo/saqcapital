@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+ <%- include('partials/head') %> 
+ <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+ integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+ crossorigin="" />
+
+<!-- Make sure you put this AFTER Leaflet's CSS -->
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+ integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+ crossorigin=""></script>
+  <body class="vertical  light  ">
+    <div class="wrapper">
+      <%- include('partials/navbar') %> 
+      <%- include('partials/sidebar') %> 
+
+      <main role="main" class="main-content">
+        <div class="container-fluid">
+          <div class="row justify-content-center">
+            <div class="col-12 col-lg-10 col-xl-8">
+              <h2 class="h3 mb-4 page-title"></h2>
+              <div class="my-4">
+               
+                
+                <div class="mb-4 align-items-center" style="position: relative;">
+                  <div class="map-box" style="height:450px; overflow:hidden">
+                   
+                    <div id="mapid" data-height="600"  style="min-height:450px;"></div>
+                 
+
+                  </div>
+                </div> 
+                  <hr class="my-4">
+                  <form method="post" action="/notificar" enctype="multipart/form-data">
+                    
+                        <input type="hidden" name="lat" >
+                        <input type="hidden" name="lng" >
+                  <div class="form-row">
+                    <div class="form-group col-md-6">
+                      <label for="firstname">Matricula*</label>
+                      <select class="form-control selectric" name="matricula">
+                          
+                        <% veiculo.forEach(veiculo=> { %>
+                          <option value="<%= veiculo.matricula %> ">
+                            <%= veiculo.matricula %>
+                          </option>
+                          <% }) %>
+                      </select>
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label for="lastname">Imagem*</label>
+                      <input type="file" class="form-control" id="customFile" name="image" onchange= "ValidarExt()" autofocus
+                      required> 
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="inputEmail4">Danos Terceiro*</label>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio"  name="danos" value="Sim"  id="exampleRadios1" checked>
+                      <label class="form-check-label" for="exampleRadios1">
+                      SIM
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio"  name="danos" value="Nao"  id="exampleRadios2" checked>
+                      <label class="form-check-label" for="exampleRadios2">
+                       Não
+                      </label>
+                    </div>
+                  </div>
+   
+                  <div class="form-row">
+                    
+                 
+                      <label for="inputState5">Entidade</label>
+                      <textarea class="form-control" placeholder="Descreve aqui..." rows="4"
+                                                name="descricao" autofocus
+                      required></textarea>
+                   
+                   
+                  </div>
+                  <hr class="my-4">
+                 
+                  <button type="submit" class="btn btn-primary">Notificar</button>
+                </form>
+              </div> <!-- /.card-body -->
+            </div> <!-- /.col-12 -->
+          </div> <!-- .row -->
+        </div> <!-- .container-fluid -->
+  
+   
+      </main> <!-- main -->
+    </div> <!-- .wrapper -->
+    <script src="/script/map_create.js"></script>
+    <script src="/Dash/js/jquery.min.js"></script>
+    <script src="/Dash/js/popper.min.js"></script>
+    <script src="/Dash/js/moment.min.js"></script>
+    <script src="/Dash/js/bootstrap.min.js"></script>
+    <script src="/Dash/js/simplebar.min.js"></script>
+    <script src='/Dash/js/daterangepicker.js'></script>
+    <script src='/Dash/js/jquery.stickOnScroll.js'></script>
+    <script src="/Dash/js/tinycolor-min.js"></script>
+    <script src="/Dash/js/config.js"></script>
+    <script src="/Dash/js/apps.js"></script>
+    <script src="/sweetalert/sweetalert2.all.min.js"></script>
+
+ 
+  </script>
+   <% if(errado.length >0) {%>
+     <script>
+       Swal.fire({
+icon: 'error',
+title: 'Oops...',
+text: '`<%=errado %>`!',
+
+})
+       
+     </script>
+     <% }%>
+  
+    
+  </body>
+</html>

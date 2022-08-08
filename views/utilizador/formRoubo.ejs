@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+ <%- include('partials/head') %> 
+ <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+ integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+ crossorigin="" />
+
+<!-- Make sure you put this AFTER Leaflet's CSS -->
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+ integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+ crossorigin=""></script>
+  <body class="vertical  light  ">
+    <div class="wrapper">
+      <%- include('partials/navbar') %> 
+      <%- include('partials/sidebar') %> 
+
+      <main role="main" class="main-content">
+        <div class="container-fluid">
+          <div class="row justify-content-center">
+            <div class="col-12 col-lg-10 col-xl-8">
+              <h2 class="h3 mb-4 page-title"></h2>
+              <div class="my-4">
+               
+                
+                <div class="mb-4 align-items-center" style="position: relative;">
+                  <div class="map-box" style="height:450px; overflow:hidden">
+                   
+                    <div id="mapid" data-height="600"  style="min-height:450px;"></div>
+                 
+
+                  </div>
+                </div> 
+                  <hr class="my-4">
+                  <form method="post" action="/rouboViatura" enctype="multipart/form-data">
+                    
+                        <input type="hidden" name="lat" >
+                        <input type="hidden" name="lng" >
+                  <div class="form-row">
+                   
+                    <div class="form-group col-md-6">
+                      <label for="lastname">Whatsapp*</label>
+                      <select class="form-control" name="matricula">
+                        <% veiculo.forEach(veiculo=> { %>
+                          <option value="<%= veiculo.matricula %> ">
+                            <%= veiculo.matricula %>
+                          </option>
+                          <% }) %>
+                      </select>
+                    </div>
+                  
+                  <div class="form-group col-md-6">
+                    <label for="inputEmail4">Descrição*</label>
+                    <input type="file" class="form-control" id="customFile" name="documento" onchange= "ValidarExt()"  autofocus required>
+
+                  </div>
+                </div>
+                
+                  <hr class="my-4">
+                  <div class="row mb-4">
+                  
+                    <div class="col-md-6">
+                      <p class="mb-2">Passos a se executar.</p>
+                      <p class="small text-muted mb-2"> Para fazer a participação online de roubo de viatura requer: </p>
+                      <ul class="small text-muted pl-4 mb-0">
+                        <li> Minimum 8 character </li>
+                        <li>At least one special character</li>
+                        <li>At least one number</li>
+                        <li>Can’t be the same as a previous password </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+                </form>
+              </div> <!-- /.card-body -->
+            </div> <!-- /.col-12 -->
+          </div> <!-- .row -->
+        </div> <!-- .container-fluid -->
+  
+   
+      </main> <!-- main -->
+    </div> <!-- .wrapper -->
+    <script src="/script/map_create.js"></script>
+    <script src="/Dash/js/jquery.min.js"></script>
+    <script src="/Dash/js/popper.min.js"></script>
+    <script src="/Dash/js/moment.min.js"></script>
+    <script src="/Dash/js/bootstrap.min.js"></script>
+    <script src="/Dash/js/simplebar.min.js"></script>
+    <script src='/Dash/js/daterangepicker.js'></script>
+    <script src='/Dash/js/jquery.stickOnScroll.js'></script>
+    <script src="/Dash/js/tinycolor-min.js"></script>
+    <script src="/Dash/js/config.js"></script>
+    <script src="/Dash/js/apps.js"></script>
+    <script>
+
+      function ValidarExt() {
+        var customFile = document.getElementById('customFile');
+        var customRuta = customFile.value;
+        var customPermitidas = /(.jpg|.png|.PNG.|JPG|.jpeg|.JPEG|.pdf|.PDF|.svg|.SVG)$/i;
+        if (!customPermitidas.exec(customRuta)) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Extensão não permitido!',
+  
+          })
+          customFile.value = '';
+          return false
+        }
+      }
+    </script>
+
+  
+    
+  </body>
+</html>

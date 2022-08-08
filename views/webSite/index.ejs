@@ -46,7 +46,7 @@
 	    </div>
 	  </nav>
     
-    <section class="hero-wrap js-fullheight" style="background-image: url('webSite/images/bg_1.jpg');" data-section="home">
+    <section class="hero-wrap js-fullheight" style="background-image: url('/website/images/bg_1.jpg');" data-section="home">
       <div class="overlay"></div>
       <div class="container">
         <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-start" data-scrollax-parent="true">
@@ -105,7 +105,7 @@
     	<div class="container">
     		<div class="row d-flex">
     			<div class="col-md-6 col-lg-4 d-flex">
-    				<div class="img d-flex align-self-stretch align-items-center" style="background-image:url(webSite/images/about.jpg);">
+    				<div class="img d-flex align-self-stretch align-items-center" style="background-image:url(/website/images/about.jpg);">
     					<div class="request-quote py-5">
 	    					<div class="py-2">
 	    						<span class="subheading">Be Part of our Business</span>
@@ -195,6 +195,7 @@
     	</div>
     </section>
 
+
     <section class="ftco-section ftco-project bg-light" data-section="projects">
     	<div class="container-fluid px-md-5">
     		<div class="row justify-content-center pb-5">
@@ -207,7 +208,7 @@
     		<div class="row">
     			<div class="col-md-12 testimonial">
             <div class="carousel-project owl-carousel">
-				<% empresa.map(empresa=>{%>
+				<% empresa.forEach(empresa=>{%>
 					<div class="item">
 						<div class="project">
 									<div class="img">
@@ -248,38 +249,26 @@
         <div class="row ftco-animate justify-content-center">
         	<div class="col-md-12 d-flex align-items-center">
         		<div class="carousel-testimony owl-carousel">
-	        		<div class="item">
+					<% investidores.map(investidores =>{ %> 
+					<div class="item">
 	        			<div class="testimony-wrap d-flex align-items-stretch">
-		              <div class="user-img d-flex align-self-stretch" style="background-image: url(webSite/images/testimony-1.jpg)">
+		              <div class="user-img d-flex align-self-stretch" style="  width: 300px;height: 300px; background-image: url('http://localhost:1004/upload/<%= investidores.image %>')">
 		              </div>
 		              <div class="text d-flex align-items-center">
 		              	<div>
 			              	<div class="icon-quote">
 			              		<span class="icon-quote-left"></span>
 			              	</div>
-			                <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
-			                <p class="name">Jacob Bolton</p>
+			                <p class="mb-4"><%= investidores.biografia %> .</p>
+			                <p class="name"> <%= investidores.nome %> </p>
 			                <span class="position">CEO, Founder</span>
 		                </div>
 		              </div>
 		            </div>
 	        		</div>
-	        		<div class="item">
-	        			<div class="testimony-wrap d-flex align-items-stretch">
-		              <div class="user-img d-flex align-self-stretch" style="background-image: url(webSite/images/testimony-2.jpg)">
-		              </div>
-		              <div class="text d-flex align-items-center">
-		              	<div>
-			              	<div class="icon-quote">
-			              		<span class="icon-quote-left"></span>
-			              	</div>
-			                <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
-			                <p class="name">Jacob Bolton</p>
-			                <span class="position">CEO, Founder</span>
-		                </div>
-		              </div>
-		            </div>
-	        		</div>
+	        			
+					<% }) %> 
+	        		
 	        	</div>
         	</div>
         </div>
@@ -296,163 +285,34 @@
           </div>
         </div>
         <div class="row d-flex">
-          <div class="col-md-4 d-flex ftco-animate">
-          	<div class="blog-entry justify-content-end">
-              <a href="single.html" class="block-20" style="background-image: url('webSite/images/image_1.jpg');">
-              </a>
-              <div class="text mt-3 float-right d-block">
-              	<div class="d-flex align-items-center pt-2 mb-4 topp">
-              		<div class="one mr-3">
-              			<span class="day">12</span>
-              		</div>
-              		<div class="two">
-              			<span class="yr">2019</span>
-              			<span class="mos">March</span>
-              		</div>
-              	</div>
-                <h3 class="heading"><a href="single.html">Why Lead Generation is Key for Business Growth</a></h3>
-                <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-                <div class="d-flex align-items-center mt-4 meta">
-	                <p class="mb-0"><a href="#" class="btn btn-secondary">Read More <span class="ion-ios-arrow-round-forward"></span></a></p>
-	                <p class="ml-auto mb-0">
-	                	<a href="#" class="mr-2">Admin</a>
-	                	<a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a>
-	                </p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4 d-flex ftco-animate">
-          	<div class="blog-entry justify-content-end">
-              <a href="single.html" class="block-20" style="background-image: url('webSite/images/image_2.jpg');">
-              </a>
-              <div class="text mt-3 float-right d-block">
-              	<div class="d-flex align-items-center pt-2 mb-4 topp">
-              		<div class="one mr-3">
-              			<span class="day">10</span>
-              		</div>
-              		<div class="two">
-              			<span class="yr">2019</span>
-              			<span class="mos">March</span>
-              		</div>
-              	</div>
-                <h3 class="heading"><a href="single.html">Why Lead Generation is Key for Business Growth</a></h3>
-                <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-                <div class="d-flex align-items-center mt-4 meta">
-	                <p class="mb-0"><a href="#" class="btn btn-secondary">Read More <span class="ion-ios-arrow-round-forward"></span></a></p>
-	                <p class="ml-auto mb-0">
-	                	<a href="#" class="mr-2">Admin</a>
-	                	<a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a>
-	                </p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4 d-flex ftco-animate">
-          	<div class="blog-entry">
-              <a href="single.html" class="block-20" style="background-image: url('webSite/images/image_3.jpg');">
-              </a>
-              <div class="text mt-3 float-right d-block">
-              	<div class="d-flex align-items-center pt-2 mb-4 topp">
-              		<div class="one mr-3">
-              			<span class="day">05</span>
-              		</div>
-              		<div class="two">
-              			<span class="yr">2019</span>
-              			<span class="mos">March</span>
-              		</div>
-              	</div>
-                <h3 class="heading"><a href="single.html">Why Lead Generation is Key for Business Growth</a></h3>
-                <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-                <div class="d-flex align-items-center mt-4 meta">
-	                <p class="mb-0"><a href="#" class="btn btn-secondary">Read More <span class="ion-ios-arrow-round-forward"></span></a></p>
-	                <p class="ml-auto mb-0">
-	                	<a href="#" class="mr-2">Admin</a>
-	                	<a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a>
-	                </p>
-                </div>
-              </div>
-            </div>
-          </div>
+			<% projectos.slice(0, 6).map(projecto=>{%> 
+				<div class="col-md-4 d-flex ftco-animate">
+					<div class="blog-entry justify-content-end">
+					<a href="/projecto1/<%= projecto.id %> " class="block-20" style="background-image: url('http://localhost:1004/upload/<%= projecto.image %>');">
+					</a>
+					<div class="text mt-3 float-right d-block">
+						<div class="d-flex align-items-center pt-2 mb-4 topp">
+							<div class="one mr-3">
+								<span class="day">12</span>
+							</div>
+							<div class="two">
+								<span class="yr">2019</span>
+								<span class="mos">March</span>
+							</div>
+						</div>
+					  <h3 class="heading"><a href="single.html">Why Lead Generation is Key for Business Growth</a></h3>
+					  <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
+					  <div class="d-flex align-items-center mt-4 meta">
+						  <p class="mb-0"><a href="/projecto1/<%= projecto.id %> " class="btn btn-secondary">Read More <span class="ion-ios-arrow-round-forward"></span></a></p>
+						 
+					  </div>
+					</div>
+				  </div>
+				</div>
 
-          <div class="col-md-4 d-flex ftco-animate">
-          	<div class="blog-entry justify-content-end">
-              <a href="single.html" class="block-20" style="background-image: url('webSite/images/image_4.jpg');">
-              </a>
-              <div class="text mt-3 float-right d-block">
-              	<div class="d-flex align-items-center pt-2 mb-4 topp">
-              		<div class="one mr-3">
-              			<span class="day">12</span>
-              		</div>
-              		<div class="two">
-              			<span class="yr">2019</span>
-              			<span class="mos">March</span>
-              		</div>
-              	</div>
-                <h3 class="heading"><a href="single.html">Why Lead Generation is Key for Business Growth</a></h3>
-                <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-                <div class="d-flex align-items-center mt-4 meta">
-	                <p class="mb-0"><a href="#" class="btn btn-secondary">Read More <span class="ion-ios-arrow-round-forward"></span></a></p>
-	                <p class="ml-auto mb-0">
-	                	<a href="#" class="mr-2">Admin</a>
-	                	<a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a>
-	                </p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4 d-flex ftco-animate">
-          	<div class="blog-entry justify-content-end">
-              <a href="single.html" class="block-20" style="background-image: url('webSite/images/image_5.jpg');">
-              </a>
-              <div class="text mt-3 float-right d-block">
-              	<div class="d-flex align-items-center pt-2 mb-4 topp">
-              		<div class="one mr-3">
-              			<span class="day">10</span>
-              		</div>
-              		<div class="two">
-              			<span class="yr">2019</span>
-              			<span class="mos">March</span>
-              		</div>
-              	</div>
-                <h3 class="heading"><a href="single.html">Why Lead Generation is Key for Business Growth</a></h3>
-                <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-                <div class="d-flex align-items-center mt-4 meta">
-	                <p class="mb-0"><a href="#" class="btn btn-secondary">Read More <span class="ion-ios-arrow-round-forward"></span></a></p>
-	                <p class="ml-auto mb-0">
-	                	<a href="#" class="mr-2">Admin</a>
-	                	<a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a>
-	                </p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4 d-flex ftco-animate">
-          	<div class="blog-entry">
-              <a href="single.html" class="block-20" style="background-image: url('webSite/images/image_6.jpg');">
-              </a>
-              <div class="text mt-3 float-right d-block">
-              	<div class="d-flex align-items-center pt-2 mb-4 topp">
-              		<div class="one mr-3">
-              			<span class="day">05</span>
-              		</div>
-              		<div class="two">
-              			<span class="yr">2019</span>
-              			<span class="mos">March</span>
-              		</div>
-              	</div>
-                <h3 class="heading"><a href="single.html">Why Lead Generation is Key for Business Growth</a></h3>
-                <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-                <div class="d-flex align-items-center mt-4 meta">
-	                <p class="mb-0"><a href="#" class="btn btn-secondary">Read More <span class="ion-ios-arrow-round-forward"></span></a></p>
-	                <p class="ml-auto mb-0">
-	                	<a href="#" class="mr-2">Admin</a>
-	                	<a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a>
-	                </p>
-                </div>
-              </div>
-            </div>
-          </div>
+				<%	}) %> 
+         
+        
         </div>
       </div>
     </section>
@@ -622,6 +482,49 @@
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
   <script src="/webSite/js/google-map.js"></script>
   <script src="/webSite/js/main.js"></script>
+
+  <script src="/sweetalert/sweetalert2.all.min.js"></script>
+  <% if(errado.length >0) {%>
+	  <script>
+  var Toast = Swal.mixin({
+toast: true,
+position: 'top-end',
+showConfirmButton: false,
+timer: 3000,
+timerProgressBar: true,
+didOpen: (toast) => {
+  toast.addEventListener('mouseenter', Swal.stopTimer)
+  toast.addEventListener('mouseleave', Swal.resumeTimer)
+}
+})
+Toast.fire({
+icon: 'error',
+title: '<%=errado %>'
+})
+	  </script>
+	 
+	  <% }else if(certo.length >0) {%>
+		<script>
+  
+const Toast = Swal.mixin({
+toast: true,
+position: 'top-end',
+showConfirmButton: false,
+timer: 3000,
+timerProgressBar: true,
+didOpen: (toast) => {
+  toast.addEventListener('mouseenter', Swal.stopTimer)
+  toast.addEventListener('mouseleave', Swal.resumeTimer)
+}
+})
+
+Toast.fire({
+icon: 'success',
+title: 'Conta criado com sucesso'
+})
+		  
+		</script>
+		<% }%>
     
   </body>
 </html>

@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+  <%- include('partials/head') %> 
+  <body class="vertical  light  ">
+    <div class="wrapper">
+      <%- include('partials/navbar') %> 
+     <%- include('partials/sidebar') %> 
+
+      <main role="main" class="main-content">
+        <div class="container-fluid">
+          <div class="row justify-content-center">
+            <div class="col-12 col-xl-10">
+              <div class="row align-items-center my-4">
+                <div class="col">
+                  <h2 class="h3 mb-0 page-title">Add Especialista</h2>
+                </div>
+                
+              </div>
+              <form method="post" action="/editarVeiculo">
+                <hr class="my-4">
+                <h5 class="mb-2 mt-4">Dados Pessoal</h5>
+                <p class="mb-4"></p>
+                
+                <div class="form-row">
+                  <div class="form-group col-md-4">
+                    <label for="custom-placeholder">Tipo*</label>
+                    <select class="form-control selectric" name="tipo">
+                      <option value="Carro">Carro</option>
+                      <option value="Camiao">Camião</option>
+                      <option value="Motorizada">Motorizada</option>
+                    </select>
+                  </div>
+                  <div class="form-group col-md-4">
+                    <label for="custom-placeholder"> Marca*</label>
+                    <select id="slctmarca" onchange="marcamodelo(this.id,'slctmodelo')" name="marca" class="form-control ">
+                      <option value="FERRARI">FERRARI</option>
+                      <option value="NISSAN">NISSAN</option>
+                      <option value="BMW">BMW</option>
+                      <option value="TOYOTA">TOYOTA</option>
+                      <option value="AGRALE">AGRALE</option>
+                      <option value="ASTON MARTIN">ASTON MARTI</option>
+                      <option value="BENTLEY">BENTLEY</option>
+                      <option value="BUGATTI">BUGATTI</option>
+                      <option value="CHANGAN">CHANGAN</option>
+                      <option value="GM/CHEVROLET">GM/CHEVROLET</option>
+                    </select>
+                  </div>
+                  <div class="form-group col-md-4">
+                    <label for="inputLang">Modelo*</label>
+                    <select name="modelo" id="slctmodelo" class="form-control"></select>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-md-4">
+                    <label for="custom-placeholder">Nº Cilindro*</label>
+                    <select class="form-control selectric" name="numero_cilindro">
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                    </select>
+                  </div>
+                  <div class="form-group col-md-4">
+                    <label for="custom-placeholder"> Combustivel*</label>
+                    <select class="form-control selectric" name="combustivel">
+                      <option value="Gasolina">Gasolina</option>
+                      <option value="Gasoleo">Gasoleo</option>
+                      
+                    </select>
+                  </div>
+                  <div class="form-group col-md-4">
+                    <label for="inputLang">Matricula</label>
+                    <input  class="form-control " type="text" placeholder="AZ-09-09-AZ" value="<%= veiculo.matricula %> " id="bootstrap-wizard-wizard-datepicker" name="matricula"/>
+                    <input  class="form-control " type="hidden"  value="<%= veiculo.id %> " id="bootstrap-wizard-wizard-datepicker" name="id"/>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label for="custom-placeholder">Cor*</label>
+                    <select class="form-control selectric" name="cor">
+                      <option value="PRETO">PRETO</option>
+                      <option value="AZUL">AZUL</option>
+                     
+                      
+                    </select>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="custom-placeholder"> Cilindragem*</label>
+                    <input class="form-control" type="text" name="cilindragem" value="<%= veiculo.cilindragem %> " id="bootstrap-wizard-wizard-phone" />
+                  </div>
+                  
+                </div>
+                <hr class="my-4">
+    
+                <hr class="my-4">
+                <div class="form-row">
+                  <div class="col-md-6">
+                    <div class="custom-control custom-switch">
+                      <input type="checkbox" class="custom-control-input" id="customPass" checked required>
+                      <label class="custom-control-label" for="customPass">Estado tudo certo!</label>
+                    </div>
+                  </div>
+                  <div class="col-md-6 text-right">
+                    <button type="submit" class="btn btn-primary">Cadastrar </button>
+                  </div>
+                </div>
+              </form>
+            </div> <!-- .col-12 -->
+          </div> <!-- .row -->
+        </div> <!-- .container-fluid -->
+   
+      </main> <!-- main -->
+    </div> <!-- .wrapper -->
+    <script src="/Dash/js/jquery.min.js"></script>
+    <script src="/Dash/js/popper.min.js"></script>
+    <script src="/Dash/js/moment.min.js"></script>
+    <script src="/Dash/js/bootstrap.min.js"></script>
+    <script src="/Dash/js/simplebar.min.js"></script>
+    <script src='/Dash/js/daterangepicker.js'></script>
+    <script src='/Dash/js/jquery.stickOnScroll.js'></script>
+    <script src="/Dash/js/tinycolor-min.js"></script>
+    <script src="/Dash/js/config.js"></script>
+    <script src='/Dash/js/jquery.dataTables.min.js'></script>
+    <script src='/Dash/js/dataTables.bootstrap4.min.js'></script>
+    <script src="/sweetalert/sweetalert2.all.min.js"></script>
+    <script src="/script/MarcaModelo.js"></script>
+   
+    <script src="/Dash/js/apps.js"></script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-56159088-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+
+      function gtag()
+      {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+      gtag('config', 'UA-56159088-1');
+    </script>
+  </body>
+</html>

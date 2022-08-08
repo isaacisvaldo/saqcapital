@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+  <%- include('partials/head') %> 
+  <body class="vertical  light  ">
+    <div class="wrapper">
+      <%- include('partials/navbar') %> 
+     <%- include('partials/sidebar') %> 
+
+      <main role="main" class="main-content">
+        <div class="container-fluid">
+          <div class="row justify-content-center">
+            <div class="col-12">
+              <h2 class="mb-2 page-title">Pagamentos</h2>
+              <p class="card-text"> </p>
+              <div class="row my-4">
+                <!-- Small table -->
+                <div class="col-md-12">
+                  <div class="card shadow">
+                    <div class="card-body">
+                      <!-- table -->
+                      <table class="table datatables" id="dataTable-1">
+                        <thead>                                 
+                          <tr>
+                            <th class="text-center">
+                              #
+                            </th>
+                          
+                            <th>Secret</th>
+                            <th>Quantia</th>
+                          
+                            <th>Accão</th>
+                          </tr>
+                        </thead>
+                        <tbody>   
+                          <% comprovativo.forEach(marcacoes => { %>                              
+                          <tr>
+                            <td>
+                              <%= marcacoes.id %> 
+                            </td>
+                           
+                            <td><%= marcacoes.marcaco.secret %> </td>
+                            <td><%= marcacoes.marcaco.quantia_pagar %> Kz</td>
+                          
+
+                            <td>
+                              <button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="text-muted sr-only">Action</span>
+                              </button>
+                              <div class="dropdown-menu dropdown-menu-right">
+                              
+                                <a class="dropdown-item" href="/Pagamento/ <%= marcacoes.id %>" >Ver</a>
+                              <!--  <a class="dropdown-item" href="#" onclick="confirmar( ` <%= marcacoes.id %> `)" >Remover</a>-->
+                              </div>
+                              
+                            </td>
+                          </tr>
+                         
+                          <% }) %>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div> <!-- simple table -->
+              </div> <!-- end section -->
+            </div> <!-- .col-12 -->
+          </div> <!-- .row -->
+        </div> <!-- .container-fluid -->
+      <%- include('partials/modal') %> 
+      </main> <!-- main -->
+    </div> <!-- .wrapper -->
+    <script src="/Dash/js/jquery.min.js"></script>
+    <script src="/Dash/js/popper.min.js"></script>
+    <script src="/Dash/js/moment.min.js"></script>
+    <script src="/Dash/js/bootstrap.min.js"></script>
+    <script src="/Dash/js/simplebar.min.js"></script>
+    <script src='/Dash/js/daterangepicker.js'></script>
+    <script src='/Dash/js/jquery.stickOnScroll.js'></script>
+    <script src="/Dash/js/tinycolor-min.js"></script>
+    <script src="/Dash/js/config.js"></script>
+    <script src='/Dash/js/jquery.dataTables.min.js'></script>
+    <script src='/Dash/js/dataTables.bootstrap4.min.js'></script>
+    <script src="/sweetalert/sweetalert2.all.min.js"></script>
+    <% if(errado.length >0) {%>
+      <script>
+  var Toast = Swal.mixin({
+toast: true,
+position: 'top-end',
+showConfirmButton: false,
+timer: 3000,
+timerProgressBar: true,
+didOpen: (toast) => {
+  toast.addEventListener('mouseenter', Swal.stopTimer)
+  toast.addEventListener('mouseleave', Swal.resumeTimer)
+}
+})
+Toast.fire({
+icon: 'error',
+title: '<%=errado %>'
+})
+      </script>
+     
+      <% }else if(certo.length >0) {%>
+        <script>
+  
+const Toast = Swal.mixin({
+toast: true,
+position: 'top-end',
+showConfirmButton: false,
+timer: 3000,
+timerProgressBar: true,
+didOpen: (toast) => {
+  toast.addEventListener('mouseenter', Swal.stopTimer)
+  toast.addEventListener('mouseleave', Swal.resumeTimer)
+}
+})
+
+Toast.fire({
+icon: 'success',
+title: `<%= certo %>`
+})
+          
+        </script>
+        <% }%>
+    <script>
+      $('#dataTable-1').DataTable(
+      {
+        autoWidth: true,
+        "lengthMenu": [
+          [16, 32, 64, -1],
+          [16, 32, 64, "All"]
+        ]
+      });
+    </script>
+    <script src="/Dash/js/apps.js"></script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-56159088-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+
+      function gtag()
+      {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+      gtag('config', 'UA-56159088-1');
+    </script>
+     <script>
+      function confirmar(id){
+        
+    Swal.fire({
+      title: 'Queres Deletar ?',
+    icon:'warning',
+      showCancelButton: true,
+      confirmButtonColor:'#3085d6',
+      cancelButtonColor:'#d33',
+      confirmButtonText: 'Confirmar',
+    
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below   */
+      if (result.isConfirmed) {
+    
+       window.location = '/deletarCliente/'+id;
+      } else if (result.isDenied) {
+        Swal.fire('Erro ao eliminar', '', 'info')
+      }
+    })
+      }
+      </script>
+  </body>
+</html>

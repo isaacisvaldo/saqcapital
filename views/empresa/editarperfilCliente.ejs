@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+ <%- include('partials/head') %> 
+  <body class="vertical  light  ">
+    <div class="wrapper">
+      <%- include('partials/navbar') %> 
+      <%- include('partials/sidebar') %> 
+
+      <main role="main" class="main-content">
+        <div class="container-fluid">
+          <div class="row justify-content-center">
+            <div class="col-12 col-lg-10 col-xl-8">
+              <h2 class="h3 mb-4 page-title"></h2>
+              <div class="my-4">
+                <ul class="nav nav-tabs mb-4" id="myTab" role="tablist">
+                  <li class="nav-item">
+                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Profile</a>
+                  </li>
+                 
+                </ul>
+                
+                  <div class="row mt-5 align-items-center">
+                    <div class="col-md-3 text-center mb-5">
+                      <div class="avatar avatar-xl">
+                        <div class="dropdown">
+                          
+                          <button class="btn btn-sm dropdown-toggle more-vertical" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <img src="/uploads/<%= user.img%> " alt=".." class="avatar-img rounded-circle">
+                          </button>
+                          <div class="dropdown-menu dropdown-menu-right">
+                           
+                            <a class="dropdown-item fe fe-camera" href="#" >+ Foto</a>
+                            
+                          </div>
+                        </div>
+                       
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="row align-items-center">
+                        <div class="col-md-7">
+                          <h4 class="mb-1"><%= user.name %></h4>
+                         
+                        </div>
+                      </div>
+                      <div class="row mb-4">
+                        <div class="col-md-7">
+                          <p class="small mb-3"><span class="badge badge-dark"><%= user.provincia %>,<%= user.municipio %></span></p>
+                        </div>
+                        <div class="col">
+                          <p class="small mb-0 text-muted"><%= user.name %></p>
+                          <p class="small mb-0 text-muted"><%= user.email %></p>
+                          <p class="small mb-0 text-muted">(+244) <%= user.tel %></p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <hr class="my-4">
+                  <form method="post" action="/editarperfilCliente">
+                  <div class="form-row">
+                    <div class="form-group col-md-6">
+                      <label for="firstname">Nome*</label>
+                      <input type="text" id="firstname" class="form-control" placeholder="Nome" name="name" value="<%= user.name %>">
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label for="lastname">Username*</label>
+                      <input type="text" id="lastname" class="form-control" placeholder="user_name" name="user_name" value="<%= user.user_name %>">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="inputEmail4">Email</label>
+                    <input type="email" class="form-control" id="inputEmail4" placeholder="email*" name="email" value="<%= user.email %>">
+                  </div>
+   
+                  <div class="form-row">
+                    <div class="form-group col-md-6">
+                      <label for="inputCompany5">Contacto*</label>
+                      <input type="text" class="form-control" id="inputCompany5" placeholder="Terminal" value="<%= user.tel %>">
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label for="inputState5">Género</label>
+                      <select id="inputState5" class="form-control" name="sexo">
+                        <option selected="" disabled>Escolher...</option>
+                        <option>Masculino</option>
+                        <option>Feminino</option>
+                        
+
+                      </select>
+                    </div>
+                   
+                  </div>
+                  <hr class="my-4">
+                  <div class="row mb-4">
+                    <div class="col-md-6">
+                      
+                      <div class="form-group">
+                        <label for="inputPassword5">Provincia*</label>
+                        <select required class="form-control " name="provincia" id="slctprovincia" onchange="populate(this.id,'slctmunicipio')" autofocus>
+								  
+                          <option disabled="disabled" selected="selected"> Escolha a província</option>
+                          <option value="luanda">Luanda</option>
+                             <option value="benguela">Benguela</option>
+                             <option value="bengo">Bengo</option>
+                             <option value="bié">Bié</option>
+                             <option value="cabinda">Cabinda</option>
+                             <option value="cuando-cubango">Cuando-Cubango</option>
+                             <option value="cuanza norte">Cuanza Norte</option>
+                             <option value="cuanza sul">Cuanza Sul</option>
+                             <option value="cunene">Cunene</option>
+                             <option value="huambo">Huambo</option>
+                             <option value="huíla">Huíla</option>
+                             <option value="lunda norte">Lunda Norte</option>
+                             <option value="lunda sul">Lunda Sul</option>
+                             <option value="malange">Malange</option>
+                             <option value="moxico">Moxico</option>
+                             <option value="namibe">Namibe</option>
+                             <option value="uíge">Uíge</option>
+                             <option value="zaire">Zaire</option>
+                        
+                        </select>
+                      </div>
+                      <div class="form-group">
+                        <label for="inputPassword6">Municipio*</label>
+                        <select autofocus required name="municipio" id="slctmunicipio" class="form-control"> <option disabled="disabled" selected="selected"> Escolha o municipio</option></select> 
+                        
+                      </div>
+                    </div>
+                    <input type="hidden" name="id" value="<%= user.id %> ">
+                    
+                  </div>
+                  <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+                </form>
+              </div> <!-- /.card-body -->
+            </div> <!-- /.col-12 -->
+          </div> <!-- .row -->
+        </div> <!-- .container-fluid -->
+        <%- include('partials/modal') %> 
+   
+      </main> <!-- main -->
+    </div> <!-- .wrapper -->
+    <script src="/script/ApiProvincia-municipio.js"></script>
+    <script src="/Dash/js/jquery.min.js"></script>
+    <script src="/Dash/js/popper.min.js"></script>
+    <script src="/Dash/js/moment.min.js"></script>
+    <script src="/Dash/js/bootstrap.min.js"></script>
+    <script src="/Dash/js/simplebar.min.js"></script>
+    <script src='/Dash/js/daterangepicker.js'></script>
+    <script src='/Dash/js/jquery.stickOnScroll.js'></script>
+    <script src="/Dash/js/tinycolor-min.js"></script>
+    <script src="/Dash/js/config.js"></script>
+    <script src="/Dash/js/apps.js"></script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-56159088-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+
+      function gtag()
+      {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+      gtag('config', 'UA-56159088-1');
+    </script>
+  </body>
+</html>

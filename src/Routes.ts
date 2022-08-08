@@ -1,19 +1,10 @@
 import {Router, Request, Response} from 'express';
 const Route= Router (); 
 import knex from './database/conection';
-import MarcacaoController from './controller/marcacaoController';
-import PacienteController from './controller/pacienteController';
-import { authenticate } from './config/loginService';
-import MedicoController from './controller/medicoController';
+
 import multerConfig from './config/multer';
 import multer from 'multer';
 const upload = multer(multerConfig);
-
-
-//Middlewares
-import pacienteAuth from './middlewre/paciente' //medico
-import adminAuth from './middlewre/utilizador'
-import medicoAuth from './middlewre/medico'
 
 
 
@@ -40,7 +31,6 @@ Route.get('/contaempresa', (req:Request, resp: Response)=>{
 
 
 
-
 // Home page do Sistema
 Route.get('/',async (req:Request, resp: Response)=>{
     const projectos = await knex('projectoempresa').select('*')
@@ -48,52 +38,47 @@ Route.get('/',async (req:Request, resp: Response)=>{
     const empresa = await knex('empresa').select('*')
     const investidores = await knex('investidor').select('*')
     const usuarios = (verify.length + empresa.length + investidores.length);
-    console.log(investidores)
+    console.log(empresa)
 
-    resp.render('webSite/index',{usuarios,info:req.flash('info'),errado:req.flash('errado'),projectos,empresa,investidores})
+    resp.render('webSite/index',{usuarios,certo:req.flash('certo'),errado:req.flash('errado'),projectos,empresa,investidores})
 })
 
 Route.get('/logout', (req:Request, resp: Response)=>{
     req.session = undefined
     resp.redirect('/')
 })
+Route.get('/projecto1/:id', async (req:Request, resp: Response)=>{
+   const{id}= req.params;
+   const pje = await knex('projectoempresa').where('id', id).first();
+   resp.render('website/projecto',{pje})
+    
+})
 
 //LOGIN GERAL DO SISTEMA
-Route.post('/loginGeral',async (req:Request, resp: Response)=>{ 
+Route.post('/login',async (req:Request, resp: Response)=>{ 
     try {
-        const {user, pass}= req.body;
-        authenticate(user, pass).then(r=>{
-            if(r==='-1'){
-                req.flash("errado","Erro ao autenticar!")
-                resp.redirect('/loginGeral')
-                
-            }else{
-                const dados=r;
-                if(dados){
-                     if(dados.p === 'paciente'){ 
-                        const pc:any = dados
-                        if(req.session){
-                          req.session.user={role:2, id:pc.pc.idPaciente};
-                          resp.redirect('/pacientePainel')
-                        }      
-                     }else if(dados.p === 'admin'){
-                        const adminDados:any = dados
-                        if(req.session){
-                          req.session.user={role:adminDados.admn.role, id:adminDados.admn.idMedico};
-                          console.log(req.session.user);
-                          resp.redirect('/adminPainel')
-                        } 
-                     }else if(dados.p==='medico_normal'){
-                        const medico:any= dados
-                        if(req.session){
-                            req.session.user={role:medico.admn.role, id:medico.admn.idMedico};
-                            resp.redirect('/medicoPainel')
-                          
-                        } 
-                    }
+        const{username,senha}=req.body;
+        const utilizador =  await knex('utilizador').where('username',username).orWhere('email',username).andWhere('senha',senha).first()
+        const investidor =  await knex('investidor').where('username',username).orWhere('email',username).andWhere('senha',senha).first()
+        const empresa =  await knex('empresa').where('email',username).andWhere('senha',senha).first()
+        if(utilizador != undefined){
+        if(req.session){
+         req.session.utilizador={id:utilizador.id, nome:utilizador.nome};
+         resp.redirect('/perfilutilizador')
+         }
+         }else if(investidor !=undefined){
+            if(req.session){
+                req.session.investidor={id:investidor.id, nome:investidor.nome};
+              resp.redirect('/perfilinvestidor')
                 }
-            }
-        })   
+            
+        }else if(empresa !=undefined){
+            if(req.session){
+                req.session.empresa={id:empresa.id, nome:empresa.nome};
+              resp.redirect('/perfilempresa')
+                }
+            
+        }
     } catch (error) {
         console.log(error)
     }

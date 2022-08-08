@@ -43,7 +43,11 @@ Utilizador.post('/cadastarUtilizador',async(req:Request, resp: Response)=>{
     resp.send(error + " - falha ao registar")
   }
 })
-
+Utilizador.get('/perfilutilizador',async(req:Request, resp: Response)=>{
+  const id = req.session?.utilizador.id;
+  const utilizador =  await knex('utilizador').where('id',id).first()
+resp.render('utilizador/perfil',{utilizador,certo:req.flash('certo'),errado:req.flash('errado')})
+})
 
 export default Utilizador;
 
