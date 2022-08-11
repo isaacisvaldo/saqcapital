@@ -12,7 +12,7 @@ import empresa from '../middlewre/empresa'
 
 Empresa.post('/cadastarEmpresa',async(req:Request, resp: Response)=>{
   try {
-    const {nome,email,tell,senha,senha2,provincia,municipio,endereco,website,nif,descricao}= req.body; 
+    const {nome,email,tell,senha,senha2,provincia,municipio,endereco,website,nif,descricao_projecto}= req.body; 
   
     if(nome===""||nif===""||email===""||tell===""||senha==="" ||senha!=senha2 ){
       req.flash('', 'Ocorreu um problema');
@@ -26,7 +26,7 @@ Empresa.post('/cadastarEmpresa',async(req:Request, resp: Response)=>{
       resp.redirect('/contaempresa')
     }else{
       const image= (req.file) ? req.file.filename: 'empresa.jpg';
-      const empresa = await knex('empresa').insert({image,nome,nif,website,email,tell,senha,estado:1,provincia,municipio,endereco,descricao})
+      const empresa = await knex('empresa').insert({image,nome,nif,website,email,tell,senha,estado:1,provincia,municipio,endereco,descricao_projecto})
       req.flash('certo','Empresa Resgistrado com sucesso');
       resp.redirect('/')
     }
@@ -60,17 +60,17 @@ resp.render('empresa/formProjecto',{empresa,certo:req.flash('certo'),errado:req.
 Empresa.post('/novosprojectos',empresa,upload.single('image'),async(req:Request, resp: Response)=>{
   try {
   
-    const {image,nome,participantes,linkurl,descricao,valorInvestir}= req.body; 
+    const {nome_projecto,participantes,linkurl,descricao_projecto,valorInvestir}= req.body; 
     const idEmpresa =req.session?.empresa.id;
   
-    if(nome===""||participantes===""||descricao===""||valorInvestir===""){
+    if(nome_projecto===""||participantes===""||descricao_projecto===""||valorInvestir===""){
       req.flash('', 'Ocorreu um problema');
       resp.redirect('/novosprojectos')
     }else{
     
      
-      const image= (req.file) ? req.file.filename: 'empresa.jpg';
-      const pje = await knex('projectoempresa').insert({nome,participantes,image,descricao,linkurl,valorInvestir,idEmpresa,estado:0})
+      const image_projecto= (req.file) ? req.file.filename: 'empresa.jpg';
+      const pje = await knex('projectoempresa').insert({nome_projecto,participantes,image_projecto,descricao_projecto,linkurl,valorInvestir,idEmpresa,estado:0})
       req.flash('certo','Empresa Resgistrado com sucesso');
       resp.redirect('/meusprojectos')
    
@@ -82,6 +82,12 @@ Empresa.post('/novosprojectos',empresa,upload.single('image'),async(req:Request,
   } catch (error) {
     resp.send(error + " - falha ao registar")
   }
+})
+Empresa.get('/visaogeral',empresa,async(req:Request, resp: Response)=>{
+  const id = req.session?.empresa.id;
+  const empresa =  await knex('empresa').where('id',id).first()
+
+resp.render('empresa/dashboard',{empresa,certo:req.flash('certo'),errado:req.flash('errado')})
 })
 
 

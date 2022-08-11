@@ -49,7 +49,8 @@ Route.get('/logout', (req:Request, resp: Response)=>{
 })
 Route.get('/projecto1/:id', async (req:Request, resp: Response)=>{
    const{id}= req.params;
-   const pje = await knex('projectoempresa').where('id', id).first();
+   const pje = await knex('projectoempresa').join('empresa','projectoempresa.idEmpresa','=','empresa.id').where('projectoempresa.idProjecto', id).first()
+   console.log(pje)
    resp.render('website/projecto',{pje})
     
 })

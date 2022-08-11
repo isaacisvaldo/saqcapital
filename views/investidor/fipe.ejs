@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+  <%- include('partials/head') %> 
+  <script src="https://www.tabelafipebrasil.com/api/js/tabelafipe-widget.min.js"></script>
+  <body class="vertical  light  ">
+    <div class="wrapper">
+      <%- include('partials/navbar') %> 
+     <%- include('partials/sidebar') %> 
+
+      <main role="main" class="main-content">
+        <div class="container-fluid">
+          <div class="row justify-content-center">
+            <div class="col-12 col-xl-10">
+              <div class="row align-items-center my-4">
+                <div class="col">
+                  <h2 class="h3 mb-0 page-title">Tabela Fipe</h2>
+                </div>
+                
+              </div>
+              <div class="tfb-query" data-style="1"></div>
+            </div> <!-- .col-12 -->
+          </div> <!-- .row -->
+        </div> <!-- .container-fluid -->
+      <%- include('partials/modal') %> 
+      </main> <!-- main -->
+    </div> <!-- .wrapper -->
+    <script src="/Dash/js/jquery.min.js"></script>
+    <script src="/Dash/js/popper.min.js"></script>
+    <script src="/Dash/js/moment.min.js"></script>
+    <script src="/Dash/js/bootstrap.min.js"></script>
+    <script src="/Dash/js/simplebar.min.js"></script>
+    <script src='/Dash/js/daterangepicker.js'></script>
+    <script src='/Dash/js/jquery.stickOnScroll.js'></script>
+    <script src="/Dash/js/tinycolor-min.js"></script>
+    <script src="/Dash/js/config.js"></script>
+    <script src='/Dash/js/jquery.dataTables.min.js'></script>
+    <script src='/Dash/js/dataTables.bootstrap4.min.js'></script>
+  
+    <script src="/Dash/js/apps.js"></script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-56159088-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+
+      function gtag()
+      {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+      gtag('config', 'UA-56159088-1');
+    </script>
+  </body>
+</html>

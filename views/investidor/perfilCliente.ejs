@@ -13,7 +13,18 @@
               <div class="row mt-5 align-items-center">
                 <div class="col-md-3 text-center mb-5">
                   <div class="avatar avatar-xl">
-                    <img src="/uploads/<%= cliente.img %> " alt=".." class="avatar-img rounded-circle">
+                    <div class="dropdown">
+                      
+                      <button class="btn btn-sm dropdown-toggle more-vertical" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img src="/uploads/<%= cliente.img %> " alt=".." class="avatar-img rounded-circle">
+                      </button>
+                      <div class="dropdown-menu dropdown-menu-right">
+                       
+                        <a class="dropdown-item fe fe-camera" href="#" >+ Foto</a>
+                        
+                      </div>
+                    </div>
+                   
                   </div>
                 </div>
                 <div class="col">
@@ -30,7 +41,20 @@
                     </div>
 
                   </div>
-               
+                  <div class="row mb-4">
+                    <div class="col-md-7">
+                      <a href="/editarperfilCliente/<%= cliente.id%> ">
+                      <button class="btn btn-primary"> Editar Perfil</button>
+                    </a>
+                    </div>
+                    <!--
+                    <div class="col">
+                      <p class="small mb-0 text-muted"><%= cliente.email%> </p>
+                      <p class="small mb-0 text-muted"><%= cliente.endereco%> </p>
+                      <p class="small mb-0 text-muted">(+244) <%= cliente.tel%> </p>
+                    </div>
+                    -->
+                  </div>
                 </div>
               </div>
               <div class="row my-4">
@@ -69,7 +93,7 @@
                           <a href="#">
                             <h3 class="h5 mt-4 mb-1">Veiculos</h3>
                           </a>
-                          <p class="text-muted"> <%= veiculo.length %> <br>
+                          <p class="text-muted"> <%= veiculos.length %> <br>
                             Total de Veiculos</p>
                           
                         </div> <!-- .col -->
@@ -107,9 +131,7 @@
               </div> <!-- .row-->
               <!-- .card-group -->
               <h6 class="mb-3">Veiculos</h6> 
-              <a href="/cadastrarVeiculo">
-              <button type="button" class="btn mb-2 btn-secondary" > +Veiculo</button>
-            </a>
+                 
               <table class="table table-borderless table-striped">
                 <thead>
                   <tr role="row">
@@ -125,7 +147,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <% veiculo.map(v=>{%> 
+                  <% veiculos.map(v=>{%> 
                     <tr>
                       <td>
                         <div class="custom-control custom-checkbox">
@@ -143,7 +165,7 @@
                         <% if(v.estado==0){ %> 
                           <span class="badge badge-pill badge-success">Ativo</span>
                           <%  }else{ %> 
-                            <span class="badge badge-pill badge-warning">error</span>
+                            <span class="badge badge-pill badge-warning">ativo</span>
                             <%   } %> 
                       </td>
                       
@@ -151,8 +173,7 @@
                           <span class="text-muted sr-only">Action</span>
                         </button>
                         <div class="dropdown-menu dropdown-menu-right">
-                          <a class="dropdown-item" href="/clienteVeiculo1/<%= v.matricula%>">Ver</a>
-                          <a class="dropdown-item" href="/editarVeiculo/<%= v.id%>">Editar</a>
+                          <a class="dropdown-item" href="/Veiculo/<%= v.id%>">Ver</a>
                           
                           <a class="dropdown-item" href="#" onclick="del(`<%= v.id %>`)">Remover</a>
                         </div>
@@ -166,7 +187,7 @@
             </div> <!-- /.col-12 -->
           </div> <!-- .row -->
         </div> <!-- .container-fluid -->
-     
+       <%- include('partials/modal') %> 
       </main> <!-- main -->
     </div> <!-- .wrapper -->
     <script src="/Dash/js/jquery.min.js"></script>
@@ -233,7 +254,26 @@ Toast.fire({
       });
     </script>
       <script>
+        function confirmar(id){
+          
+      Swal.fire({
+        title: 'Queres Deletar ?',
+      icon:'warning',
+        showCancelButton: true,
+        confirmButtonColor:'#3085d6',
+        cancelButtonColor:'#d33',
+        confirmButtonText: 'Confirmar',
       
+      }).then((result) => {
+        /* Read more about isConfirmed, isDenied below   */
+        if (result.isConfirmed) {
+      
+         window.location = '/deletarlocal/'+id;
+        } else if (result.isDenied) {
+          Swal.fire('Erro ao eliminar', '', 'info')
+        }
+      })
+        }
         function del(id){
         
         Swal.fire({
@@ -248,7 +288,7 @@ Toast.fire({
           /* Read more about isConfirmed, isDenied below   */
           if (result.isConfirmed) {
         
-           window.location = '/eliminarVeiculo/'+id;
+           window.location = '/eliminarViatura/'+id;
           } else if (result.isDenied) {
             Swal.fire('Erro ao eliminar', '', 'info')
           }
