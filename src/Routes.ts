@@ -4,6 +4,7 @@ import knex from './database/conection';
 
 import multerConfig from './config/multer';
 import multer from 'multer';
+import loginT from './middlewre/login'
 const upload = multer(multerConfig);
 
 
@@ -13,7 +14,7 @@ const upload = multer(multerConfig);
 
 //Rotas Gerais do Sistema
 //Login principal
-Route.get('/login', (req:Request, resp: Response)=>{
+Route.get('/login',loginT, (req:Request, resp: Response)=>{
     resp.render('website/form/login',{certo:req.flash('certo'),errado:req.flash('errado')})
 })
 

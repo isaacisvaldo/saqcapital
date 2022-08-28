@@ -7,6 +7,7 @@ const upload = multer(multerConfig);
 const Investidor=Router();
 
 import investidor from '../middlewre/investidor'
+import { Knex } from 'knex';
 
 
 Investidor.post('/cadastarInvestidor',async(req:Request, resp: Response)=>{
@@ -47,14 +48,21 @@ Investidor.get('/projectos',investidor,async(req:Request, resp: Response)=>{
   const id = req.session?.investidor.id;
   const investidor =  await knex('investidor').where('id',id).first()
   const projectos = await knex('projectoempresa').join('empresa','projectoempresa.idEmpresa','=','empresa.id').where('estadoProjecto',0)
-  console.log(projectos)
+ 
 resp.render('investidor/projectos',{investidor,certo:req.flash('certo'),projectos,errado:req.flash('errado')})
 })
-Investidor.get('/detalhesprojecto/:idProjecto',investidor,async(req:Request, resp: Response)=>{
+Investidor.get('/detalhesprojecto/:idprojecto',investidor,async(req:Request, resp: Response)=>{
   const idprojecto = req.params;
   const id = req.session?.investidor.id;
+ 
   const investidor =  await knex('investidor').where('id',id).first()
-resp.render('investidor/detalhesprojecto',{investidor,certo:req.flash('certo'),errado:req.flash('errado')})
+   const projecto = await knex('projectoempresa').join('empresa','projectoempresa.idEmpresa','=','empresa.id').where('idProjecto',idprojecto.idprojecto).first()
+   const invetimento = await knex('investir').where('idProjectoEmpresa',idprojecto).sum('valorInvestir')
+   if(projecto== undefined){
+    resp.render('error/404')
+   }
+const valor= 299
+resp.render('investidor/detalhesprojecto',{investidor,certo:req.flash('certo'),errado:req.flash('errado'),projecto,valor})
 })
 
 export default Investidor;

@@ -34,7 +34,7 @@ app.use(empresaController);
 app.use(investidorController);
 app.use(async(req,res, next)=>{ 
     
-    res.send('Esta rota não existe')
+    res.render('error/404')
 }) 
 
 
