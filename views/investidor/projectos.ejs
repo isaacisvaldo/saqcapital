@@ -15,66 +15,60 @@
                   <div class="col">
                     <h2 class="h3 mb-0 page-title">Projectos</h2>
                   </div>
-                  <div class="col-auto">
-                    <a href="/novosprojectos">
-                    <button type="button" class="btn btn-primary"><span class="fe fe-filter fe-12 mr-2"></span>+ Projectos</button>
-                  </a>
-                  </div>
-                  
+                 
                 </div>
               <div class="row my-4">
                 <!-- Small table -->
                 <div class="col-md-12">
                   <div class="card shadow">
                     <div class="card-body">
-                      <!-- table -->
+                      <!--table -->
                       <table class="table datatables" id="dataTable-1">
                         <thead>
                           <tr>
                             <th></th>
                             <th>#</th>
-                        
-                            <th>data</th>
-                            <th>nome</th>
-                            <th>linkurl</th>
+                            <th>Nome</th>
+                            <th>Empresa</th>
+                            <th>Email Empresa</th>
+                            <th>Whatsapp empresa</th>
                             <th>Estado</th>
                             <th>Acção</th>
                           </tr>
                         </thead>
                         <tbody>
-                          <% projectos.map(projectos=>{%> 
-                            <tr>
-                              <td>
-                                <div class="custom-control custom-checkbox">
-                                  <input type="checkbox" class="custom-control-input">
-                                  <label class="custom-control-label"></label>
-                                </div>
-                              </td>
-                              <td><%= projectos.id %> </td>
-                             
-                              <td><%=projectos.data %> </td>
-                              <td><%= projectos.nome %> </td>
-                             
-                              <td><span class="badge badge-pill badge-primary"><%= projectos.linkurl%> </span></td>
-                              <td>
-                                <% if(projectos.estado==0){ %> 
-                                  <span class="badge badge-pill badge-success">Nao Ativo</span>
-                                  <%  }else{ %> 
-                                    <span class="badge badge-pill badge-warning">Ativo</span>
-                                    <%   } %> 
-                              </td>
-                              
-                              <td><button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                  <span class="text-muted sr-only">Action</span>
-                                </button>
-                                <div class="dropdown-menu dropdown-menu-right">
-                                  <a class="dropdown-item" href="">Ver</a>
-                                  <a class="dropdown-item" href="">Proprietario</a>
-                                  <a class="dropdown-item" href="#" onclick="confirmar(``)">Remover</a>
-                                </div>
-                              </td>
-                            </tr>
-                            <%   }) %> 
+                      <% projectos.map(projectos =>{%> 
+                        <tr>
+                          <td>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" class="custom-control-input">
+                              <label class="custom-control-label"></label>
+                            </div>
+                          </td>
+                          <td><%= projectos.idProjecto %> </td>
+                          <td><%= projectos.nome_projecto %>  </td>
+                          <td><%= projectos.nome %>  </td>
+                          <td><%= projectos.email %>  </td>
+                          <td><%= projectos.tell %>  </td>
+                          <td> <div class="spinner-border mr-3 text-success" role="status">
+                            <span class="sr-only">Loading...</span>
+                          </div></td>
+                          <td>
+                            <button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              <span class="text-muted sr-only">Action</span>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-right">
+                            
+                              <a class="dropdown-item" href="/detalhesprojecto/<%= projectos.idProjecto %> "><i class="fe fe-chevrons-right fe-12 mr-4"></i>Ver</a>
+                              <a class="dropdown-item" href="#"><i class="fe fe-copy fe-12 mr-4"></i>Copy</a>
+                              <a class="dropdown-item" href="#"><i class="fe fe-edit-3 fe-12 mr-4"></i>Rename</a>
+                              <a class="dropdown-item" href="#"><i class="fe fe-delete fe-12 mr-4"></i>Delete</a>
+                              <a class="dropdown-item" href="#"><i class="fe fe-share fe-12 mr-4"></i>Share</a>
+                              <a class="dropdown-item" href="#"><i class="fe fe-download fe-12 mr-4"></i>Download</a>
+                            </div>
+                          </td>
+                         </tr>
+                        <%   }) %> 
                          
                         </tbody>
                       </table>
@@ -133,6 +127,16 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-56159088-1"></script>
     <script>
+      window.dataLayer = window.dataLayer || [];
+
+      function gtag()
+      {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+      gtag('config', 'UA-56159088-1');
+    </script>
+    <script>
       function confirmar(id){
         
     Swal.fire({
@@ -147,7 +151,7 @@
       /* Read more about isConfirmed, isDenied below   */
       if (result.isConfirmed) {
     
-       window.location = '/eliminarViatura/'+id;
+       window.location = '/deletarEspecialista/'+id;
       } else if (result.isDenied) {
         Swal.fire('Erro ao eliminar', '', 'info')
       }

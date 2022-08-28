@@ -4,12 +4,12 @@ import multerConfig from '../config/multer';
 import { Response, Request, Router } from  "express";
 // import bCryptjs from 'bcryptjs'
 const upload = multer(multerConfig);
-const Utilizador=Router();
+const Investidor=Router();
 
 import investidor from '../middlewre/investidor'
 
 
-Utilizador.post('/cadastarInvestidor',async(req:Request, resp: Response)=>{
+Investidor.post('/cadastarInvestidor',async(req:Request, resp: Response)=>{
   try {
     const {nome,email,tell,senha,senha2,provincia,municipio,username,genero,endereco,nif,biografia}= req.body; 
   
@@ -38,13 +38,26 @@ Utilizador.post('/cadastarInvestidor',async(req:Request, resp: Response)=>{
     resp.send(error + " - falha ao registar")
   }
 })
-Utilizador.get('/perfilinvestidor',async(req:Request, resp: Response)=>{
+Investidor.get('/perfilinvestidor',investidor,async(req:Request, resp: Response)=>{
   const id = req.session?.investidor.id;
   const investidor =  await knex('investidor').where('id',id).first()
 resp.render('investidor/perfil',{investidor,certo:req.flash('certo'),errado:req.flash('errado')})
 })
+Investidor.get('/projectos',investidor,async(req:Request, resp: Response)=>{
+  const id = req.session?.investidor.id;
+  const investidor =  await knex('investidor').where('id',id).first()
+  const projectos = await knex('projectoempresa').join('empresa','projectoempresa.idEmpresa','=','empresa.id').where('estadoProjecto',0)
+  console.log(projectos)
+resp.render('investidor/projectos',{investidor,certo:req.flash('certo'),projectos,errado:req.flash('errado')})
+})
+Investidor.get('/detalhesprojecto/:idProjecto',investidor,async(req:Request, resp: Response)=>{
+  const idprojecto = req.params;
+  const id = req.session?.investidor.id;
+  const investidor =  await knex('investidor').where('id',id).first()
+resp.render('investidor/detalhesprojecto',{investidor,certo:req.flash('certo'),errado:req.flash('errado')})
+})
 
-export default Utilizador;
+export default Investidor;
 
 //image, name, email, whatsaap, nomeuser senha
 

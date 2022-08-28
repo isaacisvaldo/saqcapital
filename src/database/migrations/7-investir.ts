@@ -4,6 +4,7 @@ export async function up(knex: Knex) {
         table.increments('id').primary();
         table.timestamp('data').defaultTo(knex.fn.now());
         table.string('descricao').notNullable();
+        table.integer('valorInvestir').notNullable();
         table.integer('idProjectoEmpresa').notNullable().references('idProjectoEmpresa').inTable('projectoempresa');
         table.integer('idInvestidor').notNullable().references('idInvestido').inTable('investidor');
       

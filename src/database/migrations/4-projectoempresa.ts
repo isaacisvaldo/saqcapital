@@ -3,10 +3,8 @@ export async function up(knex: Knex) {
     return knex.schema.createTable('projectoempresa', (table)=>{
         table.increments('idProjecto').primary();
         table.timestamp('data').defaultTo(knex.fn.now());
-        table.string('estado').notNullable();
-        table.string('participantes').notNullable();
+        table.string('estadoProjecto').notNullable();
         table.string('image_projecto').notNullable();
-        table.string('linkurl').notNullable().defaultTo('indisponivel');
         table.string('nome_projecto').notNullable();
         table.string('descricao_projecto').notNullable();
         table.integer('valorInvestir').notNullable();

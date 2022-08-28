@@ -11,24 +11,17 @@
             <div class="col-12">
               <div class="row align-items-center mb-4">
                 <div class="col">
-                  <h2 class="h5 page-title"><small class="text-muted text-uppercase">Relatório</small><br />#<%=veiculo.id %> </h2>
+                  <h2 class="h5 page-title"><small class="text-muted text-uppercase">Detalhes*</small><br /># </h2>
                 </div>
-                <% if(apolice != undefined){%> 
-                 <div class="col-auto">
-                  <a href="/apolice/<%= apolice.id %> ">
-                  <button type="button" class="btn btn-secondary">Apolice</button>
-                </a>
-                <a href="/comprovativo/<%= apolice.id %>">
-                  <button type="button" class="btn btn-danger">Comprovativo</button>
-                </a>
-                </div>            
-                <%} else{%> 
+              
                   <div class="col-auto">
-                    <i class="fe fe-flag mr-2"></i> <span class="badge badge-pill badge-warning text-white"> Sem Apolice</span>
+                    <i class="fe fe-flag mr-2"></i> <span class="badge badge-pill badge-success text-white"> Participar da Roda</span>
+                    
+              <button type="button" class="btn mb-2 btn-outline-secondary" data-toggle="modal" data-target="#varyModal" data-whatever="@mdo">+ Participar</button>
+            
                    
                   </div> 
                  
-                  <%  }%> 
                
               </div> <!-- .row -->
               <div class="row my-4">
@@ -42,35 +35,35 @@
                       <dl class="row align-items-center mb-0">
                         <dt class="col-sm-2 mb-3 text-muted">Matricula</dt>
                         <dd class="col-sm-4 mb-3">
-                          <strong><%=veiculo.matricula %></strong>
+                          <strong> </strong>
                         </dd>
                         <dt class="col-sm-2 mb-3 text-muted">Marca</dt>
                         <dd class="col-sm-4 mb-3">
-                          <strong><%=veiculo.marca %></strong>
+                          <strong> </strong>
                         </dd>
                       </dl>
                       <dl class="row mb-0">
                         <dt class="col-sm-2 mb-3 text-muted">Modelo</dt>
-                        <dd class="col-sm-4 mb-3"><%=veiculo.modelo %></dd>
+                        <dd class="col-sm-4 mb-3"> </dd>
                         <dt class="col-sm-2 mb-3 text-muted">Cor</dt>
-                        <dd class="col-sm-4 mb-3"><%=veiculo.cor %></dd>
+                        <dd class="col-sm-4 mb-3"> </dd>
                         <dt class="col-sm-2 mb-3 text-muted">Cilindragem</dt>
                         <dd class="col-sm-4 mb-3">
-                          <span class="badge badge-pill badge-danger"><%=veiculo.cilindragem %></span>
+                          <span class="badge badge-pill badge-danger"> </span>
                          
                         </dd>
                         <dt class="col-sm-2 mb-3 text-muted">Nº Cilindro</dt>
                         <dd class="col-sm-4 mb-3">
-                          <span class="dot dot-md bg-warning mr-2"></span> <%=veiculo.numero_cilindro %> <div class="dropdown d-inline">
+                          <span class="dot dot-md bg-warning mr-2"></span> <div class="dropdown d-inline">
                           
                           </div>
                         </dd>
                         <dt class="col-sm-2 mb-3 text-muted">Created On</dt>
-                        <dd class="col-sm-4 mb-3"><%=veiculo.createdAt %></dd>
+                        <dd class="col-sm-4 mb-3"></dd>
                         <dt class="col-sm-2 mb-3 text-muted">Ultima atualização</dt>
-                        <dd class="col-sm-4 mb-3"><%=veiculo.updatedAt %></dd>
+                        <dd class="col-sm-4 mb-3"> </dd>
                         <dt class="col-sm-2 text-muted">Registrado pelo/a</dt>
-                        <dd class="col-sm-10"> <%=veiculo.cliente.name %></dd>
+                        <dd class="col-sm-10"> </dd>
                       </dl>
                     </div> <!-- .card-body -->
                   </div> <!-- .card -->
@@ -78,12 +71,51 @@
                 </div> <!-- .col-md -->
               
                 
-             <!-- .col-md -->
+                
+           
             </div>
+            <p class="mb-1"><strong>Progresso da Roda de Investimento</strong></p>
+                <div class="progress mb-3" style="height: 30px;">
+                  <div class="progress-bar bg-success" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">80%</div>
+                </div>
           </div> <!-- .col-12 -->
         </div> <!-- .row -->
     </div> <!-- .container-fluid -->
-    <%- include('partials/modal') %> 
+    <div class="modal fade" id="varyModal" tabindex="-1" role="dialog" aria-labelledby="varyModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="varyModalLabel">Novo Local</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form method="post" action="/Local">
+              <div class="form-group">
+                <label for="recipient-name" class="col-form-label">Provincia:</label>
+                <select required class="form-control " name="provincia" id="slctprovincia" onchange="populate(this.id,'slctmunicipio')" autofocus>
+
+                
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="message-text" class="col-form-label">Municipio:</label>
+                <select autofocus required name="municipio" id="slctmunicipio" class="form-control"> <option disabled="disabled" selected="selected"> Escolha o municipio</option></select> 
+      
+              </div>
+              
+            
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn mb-2 btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn mb-2 btn-primary">Adicionar Local</button>
+          </div>
+        </form>
+        </div>
+      </div>
+    </div>
+  
     </main> <!-- main -->
     </div> <!-- .wrapper -->
     <script src="/Dash/js/jquery.min.js"></script>
