@@ -1,6 +1,6 @@
 import { Response, Request, NextFunction } from "express";
 const loginT= (req:Request, resp:Response, next:NextFunction)=>{
-
+if(req.session != undefined){
     if(req.session?.utilizador){      
         resp.redirect('/perfilutilizador')
     }else if(req.session?.investidor){
@@ -10,6 +10,10 @@ const loginT= (req:Request, resp:Response, next:NextFunction)=>{
     }else{
         next()
     }
+}else{
+    next()
+}
+   
 }
 
 

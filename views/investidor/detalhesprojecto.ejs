@@ -14,13 +14,19 @@
                   <h2 class="h5 page-title"><small class="text-muted text-uppercase">Detalhes*</small><br /># <%= projecto.idProjecto %> </h2>
                 </div>
               
-                  <div class="col-auto">
-                    <i class="fe fe-flag mr-2"></i> <span class="badge badge-pill badge-success text-white"> Participar da Roda</span>
+                  
+                  <% if(iv== undefined){%> 
+                    <div class="col-auto">
+                      <i class="fe fe-flag mr-2"></i> <span class="badge badge-pill badge-success text-white"> Participar da Roda</span>
+                      <button type="button" class="btn mb-2 btn-outline-secondary" data-toggle="modal" data-target="#varyModal" data-whatever="@mdo">+ Participar</button>
+                    </div> 
+                    <%} else{%> 
+                      <div class="col-auto">
+                        <i class="fe fe-flag mr-2"></i> <span class="badge badge-pill badge-success text-white"> Estas A Investir Com: <%= iv.valorInvestir %> Kz </span>
+                        
                     
-              <button type="button" class="btn mb-2 btn-outline-secondary" data-toggle="modal" data-target="#varyModal" data-whatever="@mdo">+ Participar</button>
-            
-                   
-                  </div> 
+                      </div> 
+                      <%}%> 
                  
                
               </div> <!-- .row -->
@@ -28,14 +34,14 @@
                 <div class="col-md-12">
                   <div class="card shadow mb-4">
                     <div class="card-header">
-                      <strong class="card-title">Detalhes da Viatura.</strong>
+                      <strong class="card-title">Detalhes do Investimento.</strong>
                      
                     </div>
                     <div class="card-body">
                       <dl class="row align-items-center mb-0">
-                        <dt class="col-sm-2 mb-3 text-muted">Matricula</dt>
+                        <dt class="col-sm-2 mb-3 text-muted">Investidores</dt>
                         <dd class="col-sm-4 mb-3">
-                          <strong> </strong>
+                          <strong><%= invetimentos.length %>  </strong>
                         </dd>
                         <dt class="col-sm-2 mb-3 text-muted">Valor Necessitado</dt>
                         <dd class="col-sm-4 mb-3">
@@ -43,7 +49,7 @@
                         </dd>
                       </dl>
                       <dl class="row mb-0">
-                        <dt class="col-sm-2 mb-3 text-muted">Modelo</dt>
+                        <dt class="col-sm-2 mb-3 text-muted">Empresa</dt>
                         <dd class="col-sm-4 mb-3"> </dd>
                         <dt class="col-sm-2 mb-3 text-muted">Cor</dt>
                         <dd class="col-sm-4 mb-3"> </dd>
@@ -58,7 +64,7 @@
                           
                           </div>
                         </dd>
-                        <dt class="col-sm-2 mb-3 text-muted">Created On</dt>
+                        <dt class="col-sm-2 mb-3 text-muted">Created On </dt>
                         <dd class="col-sm-4 mb-3"></dd>
                         <dt class="col-sm-2 mb-3 text-muted">Ultima atualização</dt>
                         <dd class="col-sm-4 mb-3"> </dd>
@@ -85,31 +91,30 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="varyModalLabel">Novo Local</h5>
+            <h5 class="modal-title" id="varyModalLabel">Investir</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
-            <form method="post" action="/Loc">
+            <form method="post" action="/investir">
               <div class="form-group">
-                <label for="recipient-name" class="col-form-label">Provincia:</label>
-                <select required class="form-control " name="provincia" id="slctprovincia" onchange="populate(this.id,'slctmunicipio')" autofocus>
-
+                <label for="recipient-name" class="col-form-label">Descrição:</label>
+                <textarea name="descricao" id="" cols="30" rows="10" class="form-control"></textarea>
                 
-                </select>
               </div>
               <div class="form-group">
-                <label for="message-text" class="col-form-label">Municipio:</label>
-                <select autofocus required name="municipio" id="slctmunicipio" class="form-control"> <option disabled="disabled" selected="selected"> Escolha o municipio</option></select> 
-      
+                <label for="message-text" class="col-form-label">Valor:<%= maior %>  </label>
+                <input type="number" name="valorInvestir" class="form-control" min="0" max='<%- maior %>'>
+                <input type="hidden" value="<%= projecto.idProjecto %> " name="idProjectoEmpresa" class="form-control">
+                
               </div>
               
             
           </div>
           <div class="modal-footer">
             <button type="button" class="btn mb-2 btn-secondary" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn mb-2 btn-primary">Adicionar Local</button>
+            <button type="submit" class="btn mb-2 btn-primary">Investir</button>
           </div>
         </form>
         </div>
@@ -167,14 +172,14 @@
         
  $(function () {
    
-  
+  var t =`<%= projecto.valorInvestir %> ` -`<%= valor%>`;
  
  var ctx = document.getElementById("myChart4").getContext('2d');
 var myChart = new Chart(ctx, {
   type: 'pie',
   data: {
     datasets: [{
-      data: [10000,40250-10000],
+      data: [`<%= valor%>`,`${t}`],
       backgroundColor: [
      
         '#63ed7a',

@@ -10,5 +10,4 @@ const medicoAuth= (req:Request, resp:Response, next:NextFunction)=>{
     }
 }
 
-
 export default medicoAuth;

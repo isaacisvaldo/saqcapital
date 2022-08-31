@@ -45,7 +45,14 @@ Route.get('/',async (req:Request, resp: Response)=>{
 })
 
 Route.get('/logout', (req:Request, resp: Response)=>{
-    req.session = undefined
+    if(req.session){
+        req.session.utilizador=undefined;
+        req.session.investidor=undefined;
+        req.session.utilizador=undefined;
+        resp.redirect('/')
+        }
+   
+    
     resp.redirect('/')
 })
 Route.get('/projecto1/:id', async (req:Request, resp: Response)=>{

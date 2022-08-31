@@ -56,16 +56,37 @@ Investidor.get('/detalhesprojecto/:idprojecto',investidor,async(req:Request, res
   const id = req.session?.investidor.id;
  
   const investidor =  await knex('investidor').where('id',id).first()
-   const projecto = await knex('projectoempresa').join('empresa','projectoempresa.idEmpresa','=','empresa.id').where('idProjecto',idprojecto.idprojecto).first()
-   const invetimento = await knex('investir').where('idProjectoEmpresa',idprojecto).sum('valorInvestir')
+  const projecto = await knex('projectoempresa').join('empresa','projectoempresa.idEmpresa','=','empresa.id').where('idProjecto',idprojecto.idprojecto).first()
+   const invetimentos = await knex('investir').where('idProjectoEmpresa',idprojecto.idprojecto).select('*')
+   const soma = await knex('investir').where('idProjectoEmpresa',idprojecto.idprojecto).sum({total:'valorInvestir'})
+   const iv = await knex('investir').where('idInvestidor','=',id).andWhere('idProjectoEmpresa',idprojecto.idprojecto).first()
+ 
+  
    if(projecto== undefined){
     resp.render('error/404')
    }
-const valor= 299
-resp.render('investidor/detalhesprojecto',{investidor,certo:req.flash('certo'),errado:req.flash('errado'),projecto,valor})
+const valor = soma.map(e=>{
+ // console.log(e)
+ return e.total
+})
+const maior = soma.map(e=>{
+  // console.log(e)
+  return  projecto.valorInvestir - e.total
+ })
+resp.render('investidor/detalhesprojecto',{investidor, maior,invetimentos,iv,certo:req.flash('certo'),errado:req.flash('errado'),projecto,valor})
+})
+Investidor.post('/investir',investidor,async(req:Request, resp: Response)=>{
+ const idInvestidor = req.session?.investidor.id;
+ const {descricao,valorInvestir,idProjectoEmpresa}= req.body
+ if(descricao===''||valorInvestir===''){
+  resp.redirect(`/detalhesprojecto/${idProjectoEmpresa}`)
+ }else{
+ const soma = await knex('investir').where('idProjectoEmpresa',idProjectoEmpresa).sum({total:'valorInvestir'})
+ const investir = await knex('investir').insert({descricao,valorInvestir,idProjectoEmpresa,idInvestidor})
+
+}
 })
 
 export default Investidor;
 
-//image, name, email, whatsaap, nomeuser senha
 
